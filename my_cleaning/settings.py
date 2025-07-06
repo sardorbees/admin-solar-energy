@@ -455,17 +455,17 @@ STATICFILES_DIRS = [
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 JAZZMIN_SETTINGS = {
-    "site_title": "Krafto-Agency",
-    "site_header": "Krafto-Agency",
-    "site_brand": "Krafto-Agency",
-    "site_icon": "../media/assets/img/aaa.png",
-    "copyright": "Krafto-Agency",
+    "site_title": "premium-dez",
+    "site_header": "premium-dez",
+    "site_brand": "premium-dez",
+    "site_icon": "../media/assets/img/1_CAT3JEY.png",
+    "copyright": "premium-dez",
     
-    "site_logo": "../media/assets/img/aaa.png",
+    "site_logo": "../media/assets/img/1_CAT3JEY.png",
     "language_chooser": True,
     "changeform_format": "horizontal_tabs",
     "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
-    "welcome_sign": "Xush Kelibsiz Krafto-Agency",
+    "welcome_sign": "Xush Kelibsiz premium-dez",
     
     "copyright": "tash-cleaning-admin",
     "user_avatar": "../media/assets/img/1111.jpg",
@@ -473,13 +473,13 @@ JAZZMIN_SETTINGS = {
         {"type": "link", "title": "Documentation", "url": "http://127.0.0.1:8000/swagger/"},
     ],
     "topmenu_links": [
-        {"name": "Xush Kelibsiz KRAFTO-AGENCY Admin", "url": "home", "permissions": ["auth.view_user"]},
-        {"name": "krafot-agency.uz", "url": "https://tash-cleaning-admin.vercel.app/", "permissions": ["auth.view_user"]},
-        {"name": "Локация-места", "url": "https://krafto-agency.onrender.com/admin/locations/location/", "permissions": ["auth.view_user"]},
-        {"name": "Коментария", "url": "https://krafto-agency.onrender.com/admin/comment/comment/", "permissions": ["auth.view_user"]},
-        {"name": "Web-sayt malumotlar", "title": "Swagger", "url": "https://krafto-agency.onrender.com/admin/shop/product/"},
-        {"name": "Logo xizmati", "title": "Swagger", "url": "https://krafto-agency.onrender.com/admin/logo/category/"},
-        {"name": "Banner xizmati", "title": "Swagger", "url": "https://krafto-agency.onrender.com/admin/base/mainpagecard/"},
+        {"name": "Xush Kelibsiz premium-dez Admin", "url": "home", "permissions": ["auth.view_user"]},
+        {"name": "premium-dez.uz", "url": "https://premium-dez.vercel.app", "permissions": ["auth.view_user"]},
+        {"name": "Локация-места", "url": "https://backend-dedd.onrender.com/admin/locations/location/", "permissions": ["auth.view_user"]},
+        {"name": "Коментария", "url": "https://backend-dedd.onrender.com/admin/comment/comment/", "permissions": ["auth.view_user"]},
+        {"name": "Наша команда", "title": "Swagger", "url": "https://backend-dedd.onrender.com/admin/team/teammember/"},
+        {"name": "Логотип на сайт", "title": "Swagger", "url": "https://backend-dedd.onrender.com/admin/logo/category/"},
+        {"name": "Баннер на сайт", "title": "Swagger", "url": "https://backend-dedd.onrender.com/admin/base/mainpagecard/"},
         {"model": "auth.User"},
         {"app": "books"},
     ],
@@ -492,10 +492,10 @@ JAZZMIN_SETTINGS = {
         }]
     },
     "usermenu_links": [
-        {"name": "Помощь", "url": "https://t.me/ali_candaan", "new_window": True, "icon": "fa-solid fa-headset"},
-        {"name": "Помощь", "url": "https://t.me/ali_candaan", "new_window": True, "icon": "fa-solid fa-headset"},
-        {"name": "Помощь", "url": "https://t.me/ali_candaan", "new_window": True, "icon": "fa-solid fa-headset"},
-        {"name": "Пользователь", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True, "icon": "fa-solid fa-user"},
+        {"name": "Пользователи и группы", "url": "https://backend-dedd.onrender.com/admin/auth/"},
+        {"name": "Язык", "url": "https://backend-dedd.onrender.com/admin/language/language/"},
+        {"name": "Фото Галлерия", "url": "https://backend-dedd.onrender.com/admin/gallery/image/"},
+        {"name": "Видео Галлерия", "url": "https://backend-dedd.onrender.com/admin/video_gallery/video/"},
         {"model": "auth.user"}
     ],
     "custom_links": {
