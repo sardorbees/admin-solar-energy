@@ -181,7 +181,8 @@ INSTALLED_APPS = [
     'video_gallery',
     'tariff',
     'our_pro',
-    'darkplan'
+    'darkplan',
+    'clickapp'
 ]
 
 TELEGRAM_BOT_TOKEN = '7613975897:AAHSzOal47p9jeu62JR1sdI23-mQyb3Sk50'
