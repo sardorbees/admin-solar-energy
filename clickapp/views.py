@@ -1,33 +1,36 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from django.utils import timezone
-from datetime import timedelta
+from .models import ClickBlock
+from .serializers import ClickBlockSerializer
+import requests
 
-from .models import IPClick, BlockedIP
+TELEGRAM_BOT_TOKEN = '7307767852:AAG7yPzsRWCmZHkq5phcE-x8yySkW99ecxo'
+TELEGRAM_CHAT_ID = '7139975148'
 
-class ClickTrackView(APIView):
-    def get_client_ip(self, request):
-        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-        if x_forwarded_for:
-            return x_forwarded_for.split(',')[0]
-        return request.META.get('REMOTE_ADDR')
+def send_telegram_message(message):
+    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+    data = {
+        'chat_id': TELEGRAM_CHAT_ID,
+        'text': message
+    }
+    try:
+        requests.post(url, data=data)
+    except:
+        pass
 
+class ClickMonitorAPIView(APIView):
     def post(self, request):
-        ip = self.get_client_ip(request)
+        ip = request.META.get('REMOTE_ADDR')
+        user_agent = request.headers.get('User-Agent')
+        click_count = int(request.data.get('clicks', 0))
 
-        if BlockedIP.objects.filter(ip=ip).exists():
-            return Response({'blocked': True}, status=status.HTTP_403_FORBIDDEN)
+        obj, created = ClickBlock.objects.get_or_create(ip_address=ip, user_agent=user_agent)
 
-        # логируем клик
-        IPClick.objects.create(ip=ip)
+        obj.click_count += click_count
+        if obj.click_count > 20:  # Порог кликов
+            obj.blocked = True
+            send_telegram_message(f"🚨 AutoClick Detected!\nIP: {ip}\nAgent: {user_agent}")
+        obj.save()
 
-        # считаем количество кликов за последние 60 секунд
-        time_threshold = timezone.now() - timedelta(seconds=60)
-        recent_clicks = IPClick.objects.filter(ip=ip, timestamp__gte=time_threshold).count()
-
-        if recent_clicks > 30:
-            BlockedIP.objects.get_or_create(ip=ip)
-            return Response({'blocked': True}, status=status.HTTP_403_FORBIDDEN)
-
-        return Response({'blocked': False}, status=status.HTTP_200_OK)
+        return Response({"blocked": obj.blocked}, status=200)

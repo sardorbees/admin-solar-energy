@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import ClickTrackView
+from .views import ClickMonitorAPIView
 
 urlpatterns = [
-    path('api/track-click/', ClickTrackView.as_view(), name='track-click'),
+    path('api/monitor-clicks/', ClickMonitorAPIView.as_view(), name='monitor-clicks'),
 ]

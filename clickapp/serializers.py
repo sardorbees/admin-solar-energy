@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from .models import BlockedIP
+from .models import ClickBlock
 
-class BlockedIPSerializer(serializers.ModelSerializer):
+class ClickBlockSerializer(serializers.ModelSerializer):
     class Meta:
-        model = BlockedIP
+        model = ClickBlock
         fields = '__all__'
