@@ -1,6 +1,7 @@
+# security/urls.py
 from django.urls import path
-from .views import ClickMonitorAPIView
+from .views import register_click
 
 urlpatterns = [
-    path('api/monitor-clicks/', ClickMonitorAPIView.as_view(), name='monitor-clicks'),
+    path('api/click/', register_click, name='register_click'),
 ]

@@ -1,7 +1,8 @@
+# security/serializers.py
 from rest_framework import serializers
-from .models import ClickBlock
+from .models import SuspiciousUser
 
-class ClickBlockSerializer(serializers.ModelSerializer):
+class SuspiciousUserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ClickBlock
-        fields = '__all__'
+        model = SuspiciousUser
+        fields = "__all__"
