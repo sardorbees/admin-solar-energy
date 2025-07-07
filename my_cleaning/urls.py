@@ -86,6 +86,7 @@ urlpatterns = [
     path("api/service_card/", include('service_card.urls')),
     path("api/slug_text/", include('slug_text.urls')),
     path("api/logo/", include('logo.urls')),
+    path("api/user_send/", include('user_send.urls')),
     path("api/product_services/", include('product_services.urls')),
     path("api/contact/", include('contact.urls')),
     path("api/language/", include('language.urls')),

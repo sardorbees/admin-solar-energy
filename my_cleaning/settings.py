@@ -182,7 +182,8 @@ INSTALLED_APPS = [
     'tariff',
     'our_pro',
     'darkplan',
-    'clickapp'
+    'clickapp',
+    'user_send'
 ]
 
 TELEGRAM_BOT_TOKEN = '7613975897:AAHSzOal47p9jeu62JR1sdI23-mQyb3Sk50'
@@ -497,6 +498,7 @@ JAZZMIN_SETTINGS = {
         {"name": "Язык", "url": "https://backend-dedd.onrender.com/admin/language/language/"},
         {"name": "Фото Галлерия", "url": "https://backend-dedd.onrender.com/admin/gallery/image/"},
         {"name": "Видео Галлерия", "url": "https://backend-dedd.onrender.com/admin/video_gallery/video/"},
+        {"name": "АвтоКлик против", "url": "https://backend-dedd.onrender.com/admin/user_send/visitor/"},
         {"model": "auth.user"}
     ],
     "custom_links": {
