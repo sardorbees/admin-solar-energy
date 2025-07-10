@@ -149,7 +149,6 @@ INSTALLED_APPS = [
     'category_title_text',
     'company',
     'contact',
-    'language',
     'location',
     'myblogyourapp',
     'question_and_answer',
@@ -176,15 +175,26 @@ INSTALLED_APPS = [
     'product_card_services',
     'category_servicess',
     'slug_text',
-    'auth_slug',
+    # 'auth_slug',
     'gallery',
     'video_gallery',
     'tariff',
     'our_pro',
     'darkplan',
     'clickapp',
-    'user_send'
+    'user_send',
+    'payment',
+    'accounts'
 ]
+
+CLICK_SETTINGS = {
+    'service_id': "<Ваш сервис ID>",
+    'merchant_id': "<Ваш merchant ID>",
+    'secret_key': "<Ваш секретный ключ>",
+    'merchant_user_id': "<Ваш merchant user ID>",
+}
+
+RECAPTCHA_SECRET_KEY = '6LckrXsrAAAAAOfCaOA8tMbotpUuxB16dxBww7si'
 
 TELEGRAM_BOT_TOKEN = '7613975897:AAHSzOal47p9jeu62JR1sdI23-mQyb3Sk50'
 TELEGRAM_CHAT_ID = '7139975148'
@@ -201,12 +211,13 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 
-AUTH_USER_MODEL = 'auth_slug.CustomUser'
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -271,11 +282,25 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
 
-LANGUAGE_CODE = "ru-uz"
+from django.utils.translation import gettext_lazy as _
+
+LANGUAGE_CODE = "ru"
+
+LANGUAGES = [
+    ('ru', 'Русский'),
+    ('uz', 'Oʻzbekcha'),
+]
+
 TIME_ZONE = "Asia/Tehran"
 USE_I18N = True
+USE_L10N = True
 USE_TZ = True
-LOCALE_PATH = [BASE_DIR / "locale"]
+
+import os
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),
+]
 
 
 
@@ -424,8 +449,8 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOW_CREDENTIALS = True
 
 CSRF_COOKIE_NAME = "csrftoken"
-CSRF_COOKIE_SAMESITE = "Lax"  
-CSRF_COOKIE_SECURE = True 
+CSRF_COOKIE_SAMESITE = "Lax"
+CSRF_COOKIE_SECURE = True
 
 CSRF_TRUSTED_ORIGINS = ["https://premium-dez.vercel.app", "https://backend-dedd.onrender.com"]
 
@@ -612,23 +637,10 @@ JAZZMIN_UI_TWEAKS = {
 
 from datetime import timedelta
 
-
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=100),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    'ROTATE_REFRESH_TOKENS': False,
+    "SIGNING_KEY": SECRET_KEY,  # Убедитесь, что SECRET_KEY — это строка
+    'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
-    'ALGORITHM': 'HS256',
-    'AUTH_HEADER_TYPES': ('Bearer',),
-    "ROTATE_REFRESH_TOKENS": True,
-    "SIGNING_KEY": os.environ.get("SIGNING_KEY"),
-    "ALGORITHM": "HS512",
-    "VERIFYING_KEY": None,
-    "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
-    "USER_ID_FIELD": "id",
-    "USER_ID_CLAIM": "user_id",
-    "AUTH_TOKEN_CLASSES": (
-        "rest_framework_simplejwt.tokens.AccessToken",
-    ),
-    "TOKEN_TYPE_CLAIM": "token_type",
 }
