@@ -100,7 +100,8 @@ urlpatterns = [
     path("api/tariff/", include('tariff.urls')),
     path("api/video_gallery/", include('video_gallery.urls')),
     path("api/gallery/", include('gallery.urls')),
-    # path("api/auth_slug/", include('auth_slug.urls')),
+    path('api/pyclick/', include('pyclick.urls')),
+    path('api/basic/', include('basic.urls')),
     path("api/myblogyourapp/", include('myblogyourapp.urls')),
     path("api/question_and_answer/", include('question_and_answer.urls')),
 

@@ -175,7 +175,8 @@ INSTALLED_APPS = [
     'product_card_services',
     'category_servicess',
     'slug_text',
-    # 'auth_slug',
+    'pyclick',
+    'basic',
     'gallery',
     'video_gallery',
     'tariff',
@@ -184,8 +185,15 @@ INSTALLED_APPS = [
     'clickapp',
     'user_send',
     'payment',
-    'accounts'
+    'accounts',
 ]
+
+import dotenv, os
+
+dotenv.load_dotenv()
+ESKIZ_EMAIL = os.getenv("ESKIZ_EMAIL")
+ESKIZ_PASSWORD = os.getenv("ESKIZ_PASSWORD")
+
 
 CLICK_SETTINGS = {
     'service_id': "<Ваш сервис ID>",
