@@ -188,13 +188,6 @@ INSTALLED_APPS = [
     'accounts',
 ]
 
-import dotenv, os
-
-dotenv.load_dotenv()
-ESKIZ_EMAIL = os.getenv("ESKIZ_EMAIL")
-ESKIZ_PASSWORD = os.getenv("ESKIZ_PASSWORD")
-
-
 CLICK_SETTINGS = {
     'service_id': "<Ваш сервис ID>",
     'merchant_id': "<Ваш merchant ID>",
