@@ -175,8 +175,6 @@ INSTALLED_APPS = [
     'product_card_services',
     'category_servicess',
     'slug_text',
-    'pyclick',
-    'basic',
     'gallery',
     'video_gallery',
     'tariff',
