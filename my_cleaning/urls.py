@@ -106,7 +106,6 @@ urlpatterns = [
     path("api/team/", include('team.urls')),
     path("api/our_pro/", include('our_pro.urls')),
     path("api/tariff/", include('tariff.urls')),
-    path('api/pyclick/', include('pyclick.urls')),
     path("api/video_gallery/", include('video_gallery.urls')),
     path("api/gallery/", include('gallery.urls')),
     path("api/myblogyourapp/", include('myblogyourapp.urls')),

@@ -184,7 +184,6 @@ INSTALLED_APPS = [
     'clickapp',
     'user_send',
     'payment',
-    'pyclick',
     'accounts',
     'chat'
 ]
