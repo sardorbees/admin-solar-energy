@@ -16,7 +16,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
-        fields = ['id', 'street', 'city', 'postal_code', 'country']
+        fields = ['id', 'street', 'city', 'country']
 
 class UserProfileSerializer(serializers.ModelSerializer):
     addresses = AddressSerializer(many=True, read_only=True)
@@ -38,7 +38,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 class AddressCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
-        fields = ['street', 'city', 'postal_code', 'country']
+        fields = ['street', 'city', 'country']
 
     def create(self, validated_data):
         user = self.context['request'].user

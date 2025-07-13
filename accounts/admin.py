@@ -5,7 +5,7 @@ from .models import CustomUser, Address
 class AddressInline(admin.TabularInline):
     model = Address
     extra = 1  # сколько пустых форм для добавления показывать
-    fields = ('street', 'city', 'postal_code', 'country')
+    fields = ('street', 'city', 'country')
     # Можно запретить удалять или редактировать, если нужно
 
 @admin.register(CustomUser)
