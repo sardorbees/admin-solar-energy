@@ -327,6 +327,7 @@ USE_L10N = True
 USE_TZ = True
 
 import os
+TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID")
 
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale'),
