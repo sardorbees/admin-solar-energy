@@ -332,11 +332,6 @@ LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale'),
 ]
 
-TWILIO_ACCOUNT_SID = 'AC6ede3cb86911b5b5f5653369b5786799'
-TWILIO_AUTH_TOKEN = '78cb7bc7ee18470c0d73e25470010667'
-TWILIO_PHONE_NUMBER = '+12025550123'  # Номер из консоли Twilio
-
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
