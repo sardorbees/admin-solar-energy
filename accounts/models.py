@@ -34,7 +34,7 @@ class Address(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='addresses', on_delete=models.CASCADE)
     street = models.CharField(max_length=255)
     city = models.CharField(max_length=100)
-    postal_code = models.CharField(max_length=20)
+    postal_code = models.CharField(max_length=10)
     country = models.CharField(max_length=100)
 
     def __str__(self):
