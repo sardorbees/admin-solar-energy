@@ -1,17 +1,18 @@
-let lastKnownId = null;
+document.addEventListener("DOMContentLoaded", function () {
+    fetch("http://127.0.0.1:8000/api/message_panel/api/messages/")
+        .then((res) => res.json())
+        .then((data) => {
+            const unread = data.filter(m => !m.is_read).length;
+            document.getElementById("msg-count").innerText = unread;
+        });
 
-function checkNewApplications() {
-  fetch('/admin/check-new-application/')
-    .then(response => response.json())
-    .then(data => {
-      if (lastKnownId !== null && data.latest_id > lastKnownId) {
-        // Новый ID найден — проигрываем звук
-        const audio = new Audio('../sounds/iphone.mp3');
-        audio.play();
-      }
-      lastKnownId = data.latest_id;
-    })
-    .catch(error => console.error('Ошибка при проверке заявок:', error));
-}
+    fetch("http://127.0.0.1:8000/api/message_panel/api/notifications/")
+        .then((res) => res.json())
+        .then((data) => {
+            const unread = data.filter(n => !n.is_read).length;
+            document.getElementById("notif-count").innerText = unread;
+        });
+});
 
-setInterval(checkNewApplications, 5000); // каждые 5 секунд
+
+

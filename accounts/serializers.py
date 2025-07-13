@@ -1,6 +1,7 @@
 from rest_framework import serializers
-from .models import CustomUser
+from .models import CustomUser, User, OTP, Address
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from django.contrib.auth import password_validation
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -12,7 +13,14 @@ class RegisterSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         return CustomUser.objects.create_user(**validated_data)
 
+class AddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Address
+        fields = ['id', 'street', 'city', 'postal_code', 'country']
+
 class UserProfileSerializer(serializers.ModelSerializer):
+    addresses = AddressSerializer(many=True, read_only=True)
+
     class Meta:
         model = CustomUser
         fields = (
@@ -22,9 +30,19 @@ class UserProfileSerializer(serializers.ModelSerializer):
             "first_name",
             "last_name",
             "phone_number",
-            "image"
+            "image",
+            "addresses",
         )
         read_only_fields = ("username", "email")
+
+class AddressCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Address
+        fields = ['street', 'city', 'postal_code', 'country']
+
+    def create(self, validated_data):
+        user = self.context['request'].user
+        return Address.objects.create(user=user, **validated_data)
 
 class CustomTokenSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -34,10 +52,6 @@ class CustomTokenSerializer(TokenObtainPairSerializer):
         token["first_name"] = user.first_name
         token["image"] = user.image.url if user.image else ""
         return token
-
-from django.contrib.auth import password_validation
-from rest_framework import serializers
-from django.contrib.auth.models import User
 
 class ChangePasswordSerializer(serializers.Serializer):
     old_password = serializers.CharField(required=True)
@@ -52,3 +66,10 @@ class ChangePasswordSerializer(serializers.Serializer):
     def validate_new_password(self, value):
         password_validation.validate_password(value)
         return value
+
+class PhoneSerializer(serializers.Serializer):
+    phone = serializers.CharField()
+
+class OTPVerifySerializer(serializers.Serializer):
+    phone = serializers.CharField()
+    code = serializers.CharField()

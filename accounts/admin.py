@@ -1,6 +1,12 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser
+from .models import CustomUser, Address
+
+class AddressInline(admin.TabularInline):
+    model = Address
+    extra = 1  # сколько пустых форм для добавления показывать
+    fields = ('street', 'city', 'postal_code', 'country')
+    # Можно запретить удалять или редактировать, если нужно
 
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
@@ -8,3 +14,4 @@ class CustomUserAdmin(UserAdmin):
         ("Дополнительно", {"fields": ("phone_number", "image")}),
     )
     list_display = ("username", "email", "first_name", "last_name", "phone_number")
+    inlines = [AddressInline]  # Добавляем inline с адресами

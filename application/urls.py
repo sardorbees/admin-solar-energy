@@ -1,7 +1,7 @@
-# urls.py
 from django.urls import path
-from .views import ApplicationCreateView
+from .views import ApplicationCreateView, UnlockIPView
 
 urlpatterns = [
-    path('applications/', ApplicationCreateView.as_view(), name='application-create'),
+    path('applicationapplications/', ApplicationCreateView.as_view(), name='application-create'),
+    path('unlock-ip/', UnlockIPView.as_view(), name='unlock-ip'),
 ]

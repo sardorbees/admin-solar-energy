@@ -136,6 +136,7 @@ class FrontendAppView(View):
 INSTALLED_APPS = [
     'jazzmin',
     'application.apps.ApplicationConfig',
+    'main',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -183,7 +184,9 @@ INSTALLED_APPS = [
     'clickapp',
     'user_send',
     'payment',
+    'pyclick',
     'accounts',
+    'chat'
 ]
 
 CLICK_SETTINGS = {
@@ -193,7 +196,34 @@ CLICK_SETTINGS = {
     'merchant_user_id': "<Ваш merchant user ID>",
 }
 
-RECAPTCHA_SECRET_KEY = '6LckrXsrAAAAAOfCaOA8tMbotpUuxB16dxBww7si'
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '[{levelname}] {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'null': {
+            'class': 'logging.NullHandler',
+        },
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+    },
+    'loggers': {
+        'django.server': {
+            'handlers': ['null'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}
+
+RECAPTCHA_SECRET_KEY = os.getenv('6Lc7ioArAAAAABqG07AEM2vHo3gD2fe7dJOh8DtB')
 
 TELEGRAM_BOT_TOKEN = '7613975897:AAHSzOal47p9jeu62JR1sdI23-mQyb3Sk50'
 TELEGRAM_CHAT_ID = '7139975148'
@@ -219,6 +249,7 @@ MIDDLEWARE = [
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -231,7 +262,7 @@ ROOT_URLCONF = 'my_cleaning.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates"],  # or [] if not using custom templates
+        'DIRS': [BASE_DIR / "staticfiles"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -301,13 +332,17 @@ LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale'),
 ]
 
+TWILIO_ACCOUNT_SID = 'AC6ede3cb86911b5b5f5653369b5786799'
+TWILIO_AUTH_TOKEN = '78cb7bc7ee18470c0d73e25470010667'
+TWILIO_PHONE_NUMBER = '+12025550123'  # Номер из консоли Twilio
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/staticfiles/'
-STATICFILES_DIRS = [BASE_DIR / "staticfiles"]
+STATICFILES_DIRS = [ BASE_DIR / 'staticfiles' ]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

@@ -18,12 +18,20 @@ from .templatetags import custom_filters
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
-
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.http import JsonResponse
 
 ADMIN_ENABLED = False
 
+@ensure_csrf_cookie
+def csrf(request):
+    return JsonResponse({'message': 'csrf cookie set'})
+
 def block_admin(request):
     return HttpResponseForbidden("Доступ запрещён")
+
+def block_swagger(request):
+    return HttpResponseForbidden("Swagger закрыт")
 
 def home(request):
     return HttpResponse("Главная страница сайта. Админка отключена или включена.")
@@ -59,18 +67,19 @@ item_id_param = openapi.Parameter('id', openapi.IN_PATH, description="ID объ�
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("api/get-csrf-token/", get_csrf_token),
+    path('api/csrf/', csrf),
     path('', home, name='home'),
     path("api/ckeditor5/", include('django_ckeditor_5.urls')),
     path("api/base/", include('base.urls')),
     path("api/darkplan/", include('darkplan.urls')),
     path("api/slug_category/", include('slug_category.urls')),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),  # ✅ логин
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path("api/locations/", include('locations.urls')),
     path("api/video/", include('video.urls')),
+    path("api/chat/", include('chat.urls')),
     path("api/products/", include('products.urls')),
-    path("api/comment/", include('comment.urls')), 
+    path("api/comment/", include('comment.urls')),
     path('i18n/', include('django.conf.urls.i18n')),
     path("api/category_card/", include('category_card.urls')),
     path("api/clientlogo/", include('clientlogo.urls')),
@@ -86,7 +95,6 @@ urlpatterns = [
     path("api/service_card/", include('service_card.urls')),
     path("api/slug_text/", include('slug_text.urls')),
     path("api/logo/", include('logo.urls')),
-    # path("api/user_auth/", include('user_auth.urls')),
     path("api/payment/", include('payment.urls')),
     path("api/accounts/", include('accounts.urls')),
     path("api/user_send/", include('user_send.urls')),
@@ -98,12 +106,14 @@ urlpatterns = [
     path("api/team/", include('team.urls')),
     path("api/our_pro/", include('our_pro.urls')),
     path("api/tariff/", include('tariff.urls')),
+    path('api/pyclick/', include('pyclick.urls')),
     path("api/video_gallery/", include('video_gallery.urls')),
     path("api/gallery/", include('gallery.urls')),
     path("api/myblogyourapp/", include('myblogyourapp.urls')),
     path("api/question_and_answer/", include('question_and_answer.urls')),
 
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 
     # redirect to swagger
     path('', lambda request: redirect('schema-swagger-ui')),
