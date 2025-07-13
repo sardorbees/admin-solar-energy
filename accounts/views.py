@@ -107,48 +107,6 @@ def send_sms_to_user(phone, message):
     except Exception as e:
         print('Ошибка при отправке SMS:', e)
 
-
-# accounts/views.py
-import random
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from .models import User, OTP
-from .serializers import PhoneSerializer, OTPVerifySerializer
-from twilio.rest import Client
-from django.conf import settings
-
-def send_sms(phone, code):
-    client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
-    client.messages.create(
-        body=f'Ваш код подтверждения: {code}',
-        from_=settings.TWILIO_PHONE_NUMBER,
-        to=phone
-    )
-
-class SendOTP(APIView):
-    def post(self, request):
-        serializer = PhoneSerializer(data=request.data)
-        if serializer.is_valid():
-            phone = serializer.validated_data['phone']
-            code = str(random.randint(100000, 999999))
-            OTP.objects.create(phone=phone, code=code)
-            send_sms(phone, code)
-            return Response({'message': 'OTP отправлен'})
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-class VerifyOTP(APIView):
-    def post(self, request):
-        serializer = OTPVerifySerializer(data=request.data)
-        if serializer.is_valid():
-            phone = serializer.validated_data['phone']
-            code = serializer.validated_data['code']
-            if OTP.objects.filter(phone=phone, code=code).exists():
-                user, _ = User.objects.get_or_create(phone=phone)
-                return Response({'message': 'Пользователь вошел', 'user_id': user.id})
-            return Response({'error': 'Неверный код'}, status=status.HTTP_400_BAD_REQUEST)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAuthenticated
 from .models import Address

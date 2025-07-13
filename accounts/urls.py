@@ -1,6 +1,6 @@
 from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from .views import RegisterView, UserProfileView, LogoutView, DashboardView, ChangePasswordView, SendOTP, VerifyOTP, AddressListCreateView, AddressDetailView
+from .views import RegisterView, UserProfileView, LogoutView, DashboardView, ChangePasswordView, AddressListCreateView, AddressDetailView
 from .serializers import CustomTokenSerializer
 
 class CustomLoginView(TokenObtainPairView):
