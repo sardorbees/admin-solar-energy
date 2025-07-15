@@ -78,7 +78,6 @@ urlpatterns = [
     path("api/locations/", include('locations.urls')),
     path("api/video/", include('video.urls')),
     path("api/products/", include('products.urls')),
-    path("api/adresslc/", include('adresslc.urls')),
     path("api/comment/", include('comment.urls')),
     path('i18n/', include('django.conf.urls.i18n')),
     path("api/category_card/", include('category_card.urls')),
@@ -110,8 +109,8 @@ urlpatterns = [
     path("api/video_gallery/", include('video_gallery.urls')),
     path("api/gallery/", include('gallery.urls')),
     path("api/myblogyourapp/", include('myblogyourapp.urls')),
+    path('api/token-auth/', obtain_auth_token),
     path("api/question_and_answer/", include('question_and_answer.urls')),
-
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 

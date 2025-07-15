@@ -160,6 +160,7 @@ INSTALLED_APPS = [
     'slug_category',
     'video',
     'comment',
+    'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'locations',
@@ -185,7 +186,6 @@ INSTALLED_APPS = [
     'user_send',
     'payment',
     'accounts',
-    'adresslc',
     'order'
 ]
 
@@ -446,8 +446,12 @@ CKEDITOR_5_CONFIGS = {
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
     ),
     "DEFAULT_THROTTLE_RATES": {
     "anon": "5/day",
@@ -679,7 +683,5 @@ from datetime import timedelta
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=100),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    "SIGNING_KEY": SECRET_KEY,  # Убедитесь, что SECRET_KEY — это строка
-    'ROTATE_REFRESH_TOKENS': True,
-    'BLACKLIST_AFTER_ROTATION': True,
+    "SIGNING_KEY": SECRET_KEY,  # Убедитесь, что SECRET_KEY �
 }
