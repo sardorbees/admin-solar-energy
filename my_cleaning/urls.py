@@ -73,7 +73,7 @@ urlpatterns = [
     path("api/base/", include('base.urls')),
     path("api/darkplan/", include('darkplan.urls')),
     path("api/slug_category/", include('slug_category.urls')),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),  # ✅ логин
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path("api/locations/", include('locations.urls')),
     path("api/video/", include('video.urls')),

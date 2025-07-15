@@ -161,7 +161,6 @@ INSTALLED_APPS = [
     'video',
     'comment',
     'rest_framework_simplejwt',
-    'rest_framework_simplejwt.token_blacklist',
     'locations',
     'card',
     'favorite',
@@ -185,7 +184,7 @@ INSTALLED_APPS = [
     'user_send',
     'payment',
     'accounts',
-    'order'
+    'order',
 ]
 
 CHANNEL_LAYERS = {
@@ -445,12 +444,8 @@ CKEDITOR_5_CONFIGS = {
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.TokenAuthentication',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
     ),
     "DEFAULT_THROTTLE_RATES": {
     "anon": "5/day",
