@@ -109,7 +109,6 @@ urlpatterns = [
     path("api/video_gallery/", include('video_gallery.urls')),
     path("api/gallery/", include('gallery.urls')),
     path("api/myblogyourapp/", include('myblogyourapp.urls')),
-    path('api/token-auth/', obtain_auth_token),
     path("api/question_and_answer/", include('question_and_answer.urls')),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),

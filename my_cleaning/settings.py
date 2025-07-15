@@ -160,7 +160,6 @@ INSTALLED_APPS = [
     'slug_category',
     'video',
     'comment',
-    'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'locations',
