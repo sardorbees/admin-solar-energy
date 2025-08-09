@@ -169,6 +169,7 @@ INSTALLED_APPS = [
     'individualnyj_teplovoj_punkt',
     'zaryadnyj_stancii',
     'vetrovaya_elektrostancii',
+    'django_filters',
     'skidka_product',
     'junko',
     'andeli',
