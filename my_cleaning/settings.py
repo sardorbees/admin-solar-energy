@@ -156,7 +156,6 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'services',
     'product_services',
-    'djoser',
     'searchpro',
     'shop_category',
     'category_all',

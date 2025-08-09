@@ -107,7 +107,7 @@ urlpatterns = [
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('api/shop/auth/', include('djoser.urls')),
-    path('api/shop/auth/', include('djoser.urls.jwt')),  # для JWT login/logout
+    path('api/shop/auth/', include('djoser.urls.jwt')),
 
     # redirect to swagger
     path('', lambda request: redirect('schema-swagger-ui')),
