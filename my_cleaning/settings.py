@@ -137,6 +137,8 @@ INSTALLED_APPS = [
     'jazzmin',
     'application.apps.ApplicationConfig',
     'main',
+    'django_daisy',
+    'django.contrib.humanize',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -144,48 +146,78 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_ckeditor_5',
-    'base',
     'category',
-    'category_title',
-    'category_title_text',
-    'company',
-    'contact',
-    'location',
     'myblogyourapp',
-    'question_and_answer',
+    'rest_framework.authtoken',
     'rest_framework',
     'drf_yasg',
     'corsheaders',
     'logo',
-    'slug_category',
-    'video',
     'comment',
     'rest_framework_simplejwt',
-    'locations',
-    'card',
-    'favorite',
-    'blog',
-    'team',
     'services',
-    'category_card',
-    'clientlogo',
-    'products',
-    'service_card',
     'product_services',
-    'product_card_services',
-    'category_servicess',
-    'slug_text',
-    'gallery',
-    'video_gallery',
-    'tariff',
-    'our_pro',
-    'darkplan',
-    'clickapp',
-    'user_send',
-    'payment',
+    'djoser',
+    'searchpro',
+    'shop_category',
+    'category_all',
     'accounts',
-    'order',
+    'solnechnye_paneli',
+    'invertory',
+    'ctabilizatory',
+    'akkumlyatory',
+    'colnechnyj_osvesheniya',
+    'dizel_generatory',
+    'individualnyj_teplovoj_punkt',
+    'zaryadnyj_stancii',
+    'vetrovaya_elektrostancii',
+    'skidka_product',
+    'junko',
+    'andeli',
+    'deye',
+    'dyness',
+    'edison',
+    'era_solar',
+    'growat',
+    'gybrid',
+    'hz_solar',
+    'invt',
 ]
+
+DAISY_SETTINGS = {
+    'SITE_TITLE': 'Django Admin',  # The title of the site
+    'SITE_HEADER': 'Administration',  # Header text displayed in the admin panel
+    'INDEX_TITLE': 'Hi, welcome to your dashboard',  # The title for the index page of dashboard
+    'SITE_LOGO': '/static/admin/img/daisyui-logomark.svg',  # Path to the logo image displayed in the sidebar
+    'EXTRA_STYLES': [],  # List of extra stylesheets to be loaded in base.html (optional)
+    'EXTRA_SCRIPTS': [],  # List of extra script URLs to be loaded in base.html (optional)
+    'LOAD_FULL_STYLES': False,  # If True, loads full DaisyUI components in the admin (useful if you have custom template overrides)
+    'SHOW_CHANGELIST_FILTER': False,  # If True, the filter sidebar will open by default on changelist views
+    'DONT_SUPPORT_ME': False, # Hide github link in sidebar footer
+    'SIDEBAR_FOOTNOTE': '', # add footnote to sidebar
+    'APPS_REORDER': {
+        # Custom configurations for third-party apps that can't be modified directly in their `apps.py`
+        'auth': {
+            'icon': 'fa-solid fa-person-military-pointing',  # FontAwesome icon for the 'auth' app
+            'name': 'Authentication',  # Custom name for the 'auth' app
+            'hide': False,  # Whether to hide the 'auth' app from the sidebar (set to True to hide)
+            'divider_title': "Auth",  # Divider title for the 'auth' section
+        },
+        'social_django': {
+            'icon': 'fa-solid fa-users-gear',  # Custom FontAwesome icon for the 'social_django' app
+        },
+    },
+}
+
+DJOSER = {
+    "USER_ID_FIELD": "id",
+    "LOGIN_FIELD": "username",
+    'LOGIN_EMAIL': 'email',
+    "SERIALIZERS": {
+        "user_create": "djoser.serializers.UserCreateSerializer",
+        "user": "djoser.serializers.UserSerializer",
+    },
+}
 
 CHANNEL_LAYERS = {
     "default": {
@@ -259,8 +291,6 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
 ]
 
 ROOT_URLCONF = 'my_cleaning.urls'
@@ -440,12 +470,15 @@ CKEDITOR_5_CONFIGS = {
     }
 }
 
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
     ),
     "DEFAULT_THROTTLE_RATES": {
     "anon": "5/day",
@@ -489,7 +522,7 @@ CSRF_COOKIE_NAME = "csrftoken"
 CSRF_COOKIE_SAMESITE = "Lax"
 CSRF_COOKIE_SECURE = True
 
-CSRF_TRUSTED_ORIGINS = ["https://premium-dez.vercel.app", "https://backend-dedd.onrender.com"]
+CSRF_TRUSTED_ORIGINS = ["https://solor-energy.vercel.app", "https://backend-dedd.onrender.com"]
 
 CSRF_COOKIE_HTTPONLY = False
 
@@ -519,58 +552,49 @@ STATICFILES_DIRS = [
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 JAZZMIN_SETTINGS = {
-    "site_title": "premium-dez",
-    "site_header": "premium-dez",
-    "site_brand": "premium-dez",
-    "site_icon": "../media/assets/img/1_CAT3JEY.png",
-    "copyright": "premium-dez",
-    
-    "site_logo": "../media/assets/img/1_CAT3JEY.png",
+    "site_title": "Enerji Project",
+    "site_header": "Enerji Project",
+    "site_brand": "Enerji Project",
+    "site_icon": "../media/assets/img/logo.png",
+    "copyright": "Enerji Project",
+
+    "site_logo": "../media/assets/img/12.png",
     "language_chooser": True,
     "changeform_format": "horizontal_tabs",
     "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
-    "welcome_sign": "Xush Kelibsiz premium-dez",
-    
-    "copyright": "tash-cleaning-admin",
+    "welcome_sign": "Xush Kelibsiz Enerji Project",
+
+    "copyright": "Enerji Project-admin",
     "user_avatar": "../media/assets/img/1111.jpg",
     "dashboard": [
         {"type": "link", "title": "Documentation", "url": "http://127.0.0.1:8000/swagger/"},
     ],
     "topmenu_links": [
-        {"name": "Xush Kelibsiz premium-dez Admin", "url": "home", "permissions": ["auth.view_user"]},
-        {"name": "premium-dez.uz", "url": "https://premium-dez.vercel.app", "permissions": ["auth.view_user"]},
-        {"name": "Локация-места", "url": "https://backend-dedd.onrender.com/admin/locations/location/", "permissions": ["auth.view_user"]},
-        {"name": "Коментария", "url": "https://backend-dedd.onrender.com/admin/comment/comment/", "permissions": ["auth.view_user"]},
-        {"name": "Наша команда", "title": "Swagger", "url": "https://backend-dedd.onrender.com/admin/team/teammember/"},
-        {"name": "Логотип на сайт", "title": "Swagger", "url": "https://backend-dedd.onrender.com/admin/logo/category/"},
-        {"name": "Баннер на сайт", "title": "Swagger", "url": "https://backend-dedd.onrender.com/admin/base/mainpagecard/"},
+        {"name": "Xush Kelibsiz Enerji Project Admin", "url": "home", "permissions": ["auth.view_user"]},
+        {"name": "СОЛНЕЧНЫЕ ПАНЕЛИ", "url": "http://127.0.0.1:8000/admin/solnechnye_paneli/", "permissions": ["auth.view_user"]},
+        {"name": "ИНВЕРТОРЫ", "url": "http://127.0.0.1:8000/admin/invertory/", "permissions": ["auth.view_user"]},
+        {"name": "CТАБИЛИЗАТОРЫ", "title": "Swagger", "url": "http://127.0.0.1:8000/admin/ctabilizatory/"},
+        {"name": "АККУМЛЯТОРЫ", "title": "Swagger", "url": "http://127.0.0.1:8000/admin/akkumlyatory/"},
+        {"name": "CОЛНЕЧНЫЙ ОСВЕЩЕНИЯ", "title": "Swagger", "url": "http://127.0.0.1:8000/admin/colnechnyj_osvesheniya/"},
+        {"name": "ДИЗЕЛЬ ГЕНЕРАТОРЫ", "title": "Swagger", "url": "http://127.0.0.1:8000/admin/dizel_generatory/producttype/"},
         {"model": "auth.User"},
         {"app": "books"},
     ],
     "custom_links": {
         "books": [{
-            "name": "Make Messages", 
-            "url": "make_messages", 
+            "name": "Make Messages",
+            "url": "make_messages",
             "icon": "fas fa-comments",
             "permissions": ["books.view_book"]
         }]
     },
     "usermenu_links": [
         {"name": "Пользователи и группы", "url": "https://backend-dedd.onrender.com/admin/auth/"},
-        {"name": "Язык", "url": "https://backend-dedd.onrender.com/admin/language/language/"},
-        {"name": "Фото Галлерия", "url": "https://backend-dedd.onrender.com/admin/gallery/image/"},
-        {"name": "Видео Галлерия", "url": "https://backend-dedd.onrender.com/admin/video_gallery/video/"},
-        {"name": "АвтоКлик против", "url": "https://backend-dedd.onrender.com/admin/user_send/visitor/"},
+        {"name": "ЗАРЯДНЫЙ СТАНЦИИ", "url": "http://127.0.0.1:8000/admin/zaryadnyj_stancii/"},
+        {"name": "ВЕТРОВАЯ ЭЛЕКТРОСТАНЦИИ", "url": "http://127.0.0.1:8000/admin/vetrovaya_elektrostancii/"},
+        {"name": "ИНДИВИДУАЛЬНЫЙ ТЕПЛОВОЙ ПУНКТ", "url": "http://127.0.0.1:8000/admin/individualnyj_teplovoj_punkt/producttype/"},
         {"model": "auth.user"}
     ],
-    "custom_links": {
-        "your_app_name": [{
-            "name": "Сбросить кэш",
-            "url": "reset-cache-url",
-            "icon": "fas fa-broom",
-            "permissions": ["your_app_name.clear_cache"]
-        }]
-    },
     "show_sidebar": True,
     "navigation_expanded": True,
     "icons": {
@@ -585,36 +609,11 @@ JAZZMIN_SETTINGS = {
     "related_modal_active": True,
     "custom_js": True,
 
-    "navigation_expanded": True,
     "hide_apps": [],
     "hide_models": [],
     "order_with_respect_to": ["auth", "your_app_name"],
 
     "show_ui_builder": True,
-    "show_sidebar": True,
-
-    "changeform_format": "collapsible",
-    "changeform_format_overrides": {
-        "auth.user": "collapsible",
-        "auth.group": "vertical_tabs",
-    },
-    "hide_apps": [],
-    "hide_models": [],
-    "order_with_respect_to": ["auth", "books"],
-"order_with_respect_to": ["auth", "books", "books.author", "books.book"],
-
-"order_with_respect_to": ["auth"],
-
-"order_with_respect_to": ["books.author", "books.book"],
-
-
-"order_with_respect_to": ["books.author", "Make Messages"],
-
-
-"order_with_respect_to": [],
-
-
-"order_with_respect_to": ["doesnt_exist"],
 }
 
 JAZZMIN_UI_TWEAKS = {
@@ -640,36 +639,11 @@ JAZZMIN_UI_TWEAKS = {
     "sticky_actions": True,
     "actions_sticky_top": True,
     "theme": "lux",
-    'whitefooter': True,
     'hide_app': True,
     'hide_title': True,
     'show_logout': True,
     'show_user_avatar': True,
     "dark_mode_theme": None,
-    "button_classes": {
-        "primary": "btn-primary",
-        "secondary": "btn-secondary",
-        "info": "btn-info",
-        "warning": "btn-warning",
-        "danger": "btn-danger",
-        "success": "btn-success",
-    },
-    "custom_links": {
-        "books": [{
-            # Any Name you like
-            "name": "Make Messages",
-            "url": "make_messages",
-            "icon": "fas fa-comments",
-            "permissions": ["books.view_book"]
-        }],
-        # Add/Or a new group (name must not conflict with an installed app)
-        "custom_group": [{
-            "name": "Custom Link",
-            "url": "custom_link",
-            "icon": "fas fa-comments",
-            "permissions": ["books.view_book"]
-        }]
-    },
 }
 
 from datetime import timedelta
