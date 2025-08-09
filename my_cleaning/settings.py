@@ -496,7 +496,7 @@ CSRF_COOKIE_NAME = "csrftoken"
 CSRF_COOKIE_SAMESITE = "Lax"
 CSRF_COOKIE_SECURE = True
 
-CSRF_TRUSTED_ORIGINS = ["https://solor-energy.vercel.app", "https://backend-dedd.onrender.com"]
+CSRF_TRUSTED_ORIGINS = ["https://solor-energy.vercel.app", "https://admin-solar-energy.onrender.com"]
 
 CSRF_COOKIE_HTTPONLY = False
 
