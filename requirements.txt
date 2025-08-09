@@ -27,3 +27,4 @@ urllib3==2.4.0
 whitenoise==6.9.0
 jinja2
 django-filter
+djoser
